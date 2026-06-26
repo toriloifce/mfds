@@ -1,11 +1,22 @@
-# Usa uma imagem oficial e leve do Nginx
-FROM nginx:alpine
+# Localização: todoapp-mfds/Dockerfile
 
-# Remove os arquivos padrão que vêm no Nginx
-RUN rm -rf /usr/share/nginx/html/*
+# Usa uma imagem oficial e leve do Node.js recomendada para produção
+FROM node:18-alpine
 
-# Copia todo o conteúdo da sua pasta 'src' para a pasta pública do Nginx
-COPY ./src /usr/share/nginx/html
+# Cria e define o diretório da aplicação no contêiner
+WORKDIR /app
 
-# Expõe a porta 80 (padrão do Nginx)
+# Copia os arquivos de mapeamento de dependências
+COPY package*.json ./
+
+# Instala as dependências de forma limpa
+RUN npm install
+
+# Copia todo o restante do código do projeto (incluindo a pasta src)
+COPY . .
+
+# Expõe a porta de rede do contêiner
 EXPOSE 80
+
+# Inicia o servidor Node.js que gerencia o front e as gravações em arquivo
+CMD ["npm", "start"]

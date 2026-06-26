@@ -1,4 +1,4 @@
-git config --global user.name* {
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
@@ -118,4 +118,3 @@ header h1 {
     cursor: pointer;
     font-size: 1.1rem;
 }
-
